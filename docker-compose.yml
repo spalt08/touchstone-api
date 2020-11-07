@@ -1,0 +1,14 @@
+# Docker Compose file Reference (https://docs.docker.com/compose/compose-file/)
+version: "3.7"
+
+services:
+  db:
+    restart: unless-stopped
+    image: postgres:13
+    command: postgres
+    environment:
+      POSTGRES_DB: "jsbnch"
+      POSTGRES_USER: "jsbnch"
+      POSTGRES_PASSWORD: "jsbnch_dev"
+    ports:
+      - "54321:5432"

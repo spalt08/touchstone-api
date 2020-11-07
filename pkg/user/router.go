@@ -1,0 +1,17 @@
+// Package user contains all related logic, including authorization
+package user
+
+import (
+	"github.com/gin-gonic/gin"
+)
+
+// Setup will attach controllers for related routes to gin instance
+func Setup(router *gin.Engine, service *Service) {
+	var routes = router.Group("/v1")
+	var ctrl = &controller{
+		service: service,
+	}
+
+	routes.POST("/login", ctrl.Login)
+	routes.GET("/me", ctrl.Me)
+}
