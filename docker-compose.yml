@@ -7,8 +7,8 @@ services:
     image: postgres:13
     command: postgres
     environment:
-      POSTGRES_DB: "jsbnch"
-      POSTGRES_USER: "jsbnch"
-      POSTGRES_PASSWORD: "jsbnch_dev"
+      POSTGRES_DB: "touchstone-api"
+      POSTGRES_USER: "touchstone-api"
+      POSTGRES_PASSWORD: "touchstone-api_dev"
     ports:
-      - "54321:5432"
+      - "5432:5432"

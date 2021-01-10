@@ -1,7 +1,7 @@
 package user
 
 import (
-	"jsbnch/pkg/middleware"
+	"touchstone-api/pkg/middleware"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,8 +10,8 @@ type controller struct {
 	service *Service
 }
 
-func (ctrl *controller) Login(ctx *gin.Context) {
-	// swagger:operation POST /login User userLogin
+func (ctrl *controller) GithubLogin(ctx *gin.Context) {
+	// swagger:operation POST /login/github User userLogin
 	// ---
 	// summary: Authentification
 	// description: Can be used both for signing in and registration
@@ -20,14 +20,14 @@ func (ctrl *controller) Login(ctx *gin.Context) {
 	//   in: body
 	//   required: true
 	//   schema:
-	//     $ref: "#/definitions/LoginRequest"
+	//     $ref: "#/definitions/GithubLoginRequest"
 	// responses:
 	//   "200":
 	//     description: "Success"
 	//     schema:
-	//       $ref: "#/definitions/LoginResponse"
+	//       $ref: "#/definitions/GithubLoginRequest"
 
-	requestData := &LoginRequest{}
+	requestData := &GithubLoginRequest{}
 	err := middleware.Bind(ctx, requestData)
 
 	if err != nil {
@@ -35,7 +35,14 @@ func (ctrl *controller) Login(ctx *gin.Context) {
 		return
 	}
 
-	githubUser, err := ctrl.service.GetGithubInfo(requestData.AccessToken)
+	accessToken, err := ctrl.service.GetGithuAccessToken(requestData.Code, requestData.State)
+
+	if err != nil {
+		middleware.RespondError(ctx, err)
+		return
+	}
+
+	githubUser, err := ctrl.service.GetGithubInfo(accessToken)
 
 	if err != nil {
 		middleware.RespondError(ctx, err)
@@ -56,7 +63,7 @@ func (ctrl *controller) Login(ctx *gin.Context) {
 		return
 	}
 
-	middleware.RespondSuccess(ctx, LoginResponse{
+	middleware.RespondSuccess(ctx, GithubLoginResponse{
 		User:  user,
 		Token: token,
 	})

@@ -31,9 +31,19 @@ func GetDatabaseName() string {
 	return getStringValueWithWarning("POSTGRES_DB")
 }
 
-// Get returns postgres database name
+// GetJwtSecret returns the master secret for JWT
 func GetJwtSecret() string {
 	return getStringValueWithWarning("MASTER_SECRET")
+}
+
+// GetGithubClientID returns the client id of the github oauth app
+func GetGithubClientID() string {
+	return getStringValueWithWarning("GITHUB_CLIENT_ID")
+}
+
+// GetGithubClientSecret returns the client id of the github oauth app
+func GetGithubClientSecret() string {
+	return getStringValueWithWarning("GITHUB_CLIENT_SECRET")
 }
 
 func getStringValueWithFallback(name string, fallback string) string {

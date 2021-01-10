@@ -12,6 +12,6 @@ func Setup(router *gin.Engine, service *Service) {
 		service: service,
 	}
 
-	routes.POST("/login", ctrl.Login)
 	routes.GET("/me", ctrl.Me)
+	routes.POST("/login/github", ctrl.GithubLogin)
 }

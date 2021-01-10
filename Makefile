@@ -1,7 +1,7 @@
 include ./config/development.env
 export
 
-PID = /tmp/jsbnch.pid
+PID = /tmp/touchstone-api.pid
 GO_FILES = cmd/api/server.go
 
 swagger: 
@@ -15,12 +15,12 @@ test:
 
 start:
 	go run -mod=vendor $(GO_FILES) & echo $$! > $(PID)
-	@echo "STARTED jsbnch"
+	@echo "STARTED touchstone-api"
 
 kill:
 	-kill `pgrep -P \`cat $(PID)\`` && \
 	 kill `cat $(PID)`
-	@echo "STOPED jsbnch" && printf '%*s\n' "40" '' | tr ' ' -
+	@echo "STOPED touchstone-api" && printf '%*s\n' "40" '' | tr ' ' -
 
 restart: kill start
 
@@ -28,7 +28,7 @@ prepare:
 	go mod vendor
 
 serve: prepare start
-	fswatch -e vendor -or --event=Updated /home/jsbnch/pkg | xargs -n1 -I {} make restart
+	fswatch -e vendor -or --event=Updated /home/touchstone-api/pkg | xargs -n1 -I {} make restart
 
 migrate-init:
 	go run cmd/migrate/*.go init

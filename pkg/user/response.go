@@ -1,10 +1,10 @@
 package user
 
-import "jsbnch/pkg/model"
+import "touchstone-api/pkg/model"
 
-// LoginResponse represents response for POST /login
+// GithubLoginResponse represents response for POST /login
 // swagger:model
-type LoginResponse struct {
+type GithubLoginResponse struct {
 	// Logged user
 	User  *model.User `json:"user"`
 	Token string      `json:"token"`

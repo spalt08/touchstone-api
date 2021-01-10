@@ -2,10 +2,10 @@ package middleware
 
 import (
 	"fmt"
-	"jsbnch/pkg/model"
-	"jsbnch/pkg/utils/env"
 	"strconv"
 	"strings"
+	"touchstone-api/pkg/model"
+	"touchstone-api/pkg/utils/env"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
@@ -47,6 +47,10 @@ func ParseToken(ctx *gin.Context) (int64, *GenericAPIError) {
 
 		return hmacSecret, nil
 	})
+
+	if err != nil {
+		return userID, NewUnauthorizedError(err)
+	}
 
 	if claims, ok := jwtToken.Claims.(jwt.MapClaims); ok && jwtToken.Valid {
 		userID, err = strconv.ParseInt(claims["userId"].(string), 10, 64)

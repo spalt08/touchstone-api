@@ -1,11 +1,11 @@
-package main
+package migrations
 
 import (
 	"github.com/go-pg/migrations/v8"
 	"github.com/go-pg/pg/v10"
 	"github.com/go-pg/pg/v10/orm"
 
-	"jsbnch/pkg/model"
+	"touchstone-api/pkg/model"
 )
 
 func init() {

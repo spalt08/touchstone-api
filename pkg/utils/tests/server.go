@@ -3,10 +3,10 @@ package tests
 import (
 	"bytes"
 	"io/ioutil"
-	"jsbnch/pkg/middleware"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"touchstone-api/pkg/middleware"
 
 	"github.com/gin-gonic/gin"
 	jsoniter "github.com/json-iterator/go"
@@ -14,19 +14,23 @@ import (
 
 // TestServer is abstraction for more exlicit tests
 type TestServer struct {
-	Handler *gin.Engine
-	t       *testing.T
+	Handler   *gin.Engine
+	AuthToken string
+	t         *testing.T
 }
 
 // NewTestServer creates a test gin server instance with actual middlewares
 func NewTestServer(t *testing.T) *TestServer {
+	gin.SetMode("release")
+
 	var handler = gin.New()
 
 	middleware.Setup(handler)
 
 	return &TestServer{
-		Handler: handler,
-		t:       t,
+		Handler:   handler,
+		AuthToken: "",
+		t:         t,
 	}
 }
 
@@ -36,6 +40,11 @@ func (server *TestServer) Request(method string, endpoint string, body string) *
 	var buffer = bytes.NewBuffer([]byte(body))
 
 	var request, _ = http.NewRequest(method, endpoint, buffer)
+
+	if len(server.AuthToken) > 0 {
+		request.Header.Set("Authorization", "bearer "+server.AuthToken)
+	}
+
 	server.Handler.ServeHTTP(response, request)
 
 	return response

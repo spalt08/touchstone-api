@@ -1,4 +1,4 @@
-module jsbnch
+module touchstone-api
 
 go 1.15
 
@@ -15,7 +15,7 @@ require (
 	github.com/json-iterator/go v1.1.10
 	github.com/stretchr/testify v1.6.1
 	golang.org/x/crypto v0.0.0-20201016220609-9e8e0b390897 // indirect
-	golang.org/x/oauth2 v0.0.0-20200902213428-5d25da1a8d43
+	golang.org/x/oauth2 v0.0.0-20200902213428-5d25da1a8d43 // indirect
 	golang.org/x/text v0.3.4 // indirect
 	gorm.io/driver/postgres v1.0.5 // indirect
 	gorm.io/gorm v1.20.5 // indirect

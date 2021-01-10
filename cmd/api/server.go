@@ -26,10 +26,10 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 
-	"jsbnch/external/postgres"
-	"jsbnch/pkg/middleware"
-	"jsbnch/pkg/user"
-	"jsbnch/pkg/utils/env"
+	"touchstone-api/external/postgres"
+	"touchstone-api/pkg/middleware"
+	"touchstone-api/pkg/user"
+	"touchstone-api/pkg/utils/env"
 )
 
 func main() {
@@ -37,7 +37,7 @@ func main() {
 	var handler = gin.New()
 
 	// Connect database
-	var db = postgres.NewConnection()
+	var db = postgres.NewConnection(true)
 	defer db.Close()
 
 	// Setup services
