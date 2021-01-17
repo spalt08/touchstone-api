@@ -18,7 +18,7 @@
   "host": "localhost:8081",
   "basePath": "/v1",
   "paths": {
-    "/login": {
+    "/login/github": {
       "post": {
         "description": "Can be used both for signing in and registration",
         "tags": [
@@ -32,7 +32,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/LoginRequest"
+              "$ref": "#/definitions/GithubLoginRequest"
             }
           }
         ],
@@ -40,7 +40,7 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/GithubLoginResponse"
+              "$ref": "#/definitions/GithubLoginRequest"
             }
           }
         }
@@ -71,6 +71,30 @@
     }
   },
   "definitions": {
+    "CreateRequest": {
+      "description": "CreateRequest represents request data for POST /benchmark",
+      "type": "object",
+      "properties": {
+        "setup_code": {
+          "description": "The benchmark setup code",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "x-go-name": "SetupCode",
+          "example": {
+            "js": "const a = 'test';"
+          }
+        },
+        "title": {
+          "description": "The benchmark title",
+          "type": "string",
+          "x-go-name": "Title",
+          "example": "My benchmark"
+        }
+      },
+      "x-go-package": "touchstone-api/pkg/benchmark"
+    },
     "ErrorAPIResponse": {
       "description": "ErrorAPIResponse is a wrapper for all API error responses",
       "type": "object",
@@ -148,15 +172,21 @@
       },
       "x-go-package": "touchstone-api/pkg/middleware"
     },
-    "LoginRequest": {
-      "description": "LoginRequest represents request data for POST /login",
+    "GithubLoginRequest": {
+      "description": "GithubLoginRequest represents request data for POST /login\nRef: https://docs.github.com/en/free-pro-team@latest/developers/apps/authorizing-oauth-apps#2-users-are-redirected-back-to-your-site-by-github",
       "type": "object",
       "properties": {
-        "accessToken": {
-          "description": "Github access token",
+        "code": {
+          "description": "The Github oAuth code received as oAuth response",
           "type": "string",
-          "x-go-name": "AccessToken",
+          "x-go-name": "Code",
           "example": "ABCDEF"
+        },
+        "state": {
+          "description": "The unguessable random string provided in the initial oAuth request",
+          "type": "string",
+          "x-go-name": "State",
+          "example": "12345"
         }
       },
       "x-go-package": "touchstone-api/pkg/user"

@@ -25,7 +25,7 @@ func (ctrl *controller) GithubLogin(ctx *gin.Context) {
 	//   "200":
 	//     description: "Success"
 	//     schema:
-	//       $ref: "#/definitions/GithubLoginRequest"
+	//       $ref: "#/definitions/GithubLoginResponse"
 
 	requestData := &GithubLoginRequest{}
 	err := middleware.Bind(ctx, requestData)
