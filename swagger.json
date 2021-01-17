@@ -1,0 +1,247 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "Backend REST server for jsbench",
+    "title": "JSBench Server",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8081",
+  "basePath": "/v1",
+  "paths": {
+    "/login/github": {
+      "post": {
+        "description": "Can be used both for signing in and registration",
+        "tags": [
+          "User"
+        ],
+        "summary": "Authentification",
+        "operationId": "userLogin",
+        "parameters": [
+          {
+            "name": "Request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GithubLoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GithubLoginRequest"
+            }
+          }
+        }
+      }
+    },
+    "/me": {
+      "get": {
+        "security": [
+          {
+            "jwtToken": []
+          }
+        ],
+        "description": "Returns current authorized user",
+        "tags": [
+          "User"
+        ],
+        "summary": "Get Account",
+        "operationId": "userSelf",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CreateRequest": {
+      "description": "CreateRequest represents request data for POST /benchmark",
+      "type": "object",
+      "properties": {
+        "setup_code": {
+          "description": "The benchmark setup code",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "x-go-name": "SetupCode",
+          "example": {
+            "js": "const a = 'test';"
+          }
+        },
+        "title": {
+          "description": "The benchmark title",
+          "type": "string",
+          "x-go-name": "Title",
+          "example": "My benchmark"
+        }
+      },
+      "x-go-package": "touchstone-api/pkg/benchmark"
+    },
+    "ErrorAPIResponse": {
+      "description": "ErrorAPIResponse is a wrapper for all API error responses",
+      "type": "object",
+      "properties": {
+        "error": {
+          "description": "Request error",
+          "type": "object",
+          "x-go-name": "Error",
+          "$ref": "#/definitions/GenericAPIError",
+          "example": null
+        },
+        "result": {
+          "description": "Request result",
+          "type": "object",
+          "x-go-name": "Result",
+          "example": null
+        },
+        "version": {
+          "description": "Response notation version",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Version",
+          "example": 1
+        }
+      },
+      "x-go-package": "touchstone-api/pkg/middleware"
+    },
+    "GenericAPIError": {
+      "description": "GenericAPIError is a wrapper for all API errors",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "Error code, often same as HTTP status code",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "data": {
+          "description": "Error details",
+          "type": "object",
+          "x-go-name": "Data",
+          "example": null
+        },
+        "message": {
+          "description": "Humanized message",
+          "type": "string",
+          "x-go-name": "Message"
+        }
+      },
+      "x-go-package": "touchstone-api/pkg/middleware"
+    },
+    "GenericAPIResponse": {
+      "description": "GenericAPIResponse is a wrapper for all API responses",
+      "type": "object",
+      "properties": {
+        "error": {
+          "description": "Request error",
+          "type": "object",
+          "x-go-name": "Error",
+          "example": null
+        },
+        "result": {
+          "description": "Request result",
+          "type": "object",
+          "x-go-name": "Result",
+          "example": null
+        },
+        "version": {
+          "description": "Response notation version",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Version",
+          "example": 1
+        }
+      },
+      "x-go-package": "touchstone-api/pkg/middleware"
+    },
+    "GithubLoginRequest": {
+      "description": "GithubLoginRequest represents request data for POST /login\nRef: https://docs.github.com/en/free-pro-team@latest/developers/apps/authorizing-oauth-apps#2-users-are-redirected-back-to-your-site-by-github",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "The Github oAuth code received as oAuth response",
+          "type": "string",
+          "x-go-name": "Code",
+          "example": "ABCDEF"
+        },
+        "state": {
+          "description": "The unguessable random string provided in the initial oAuth request",
+          "type": "string",
+          "x-go-name": "State",
+          "example": "12345"
+        }
+      },
+      "x-go-package": "touchstone-api/pkg/user"
+    },
+    "GithubLoginResponse": {
+      "description": "GithubLoginResponse represents response for POST /login",
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "x-go-name": "Token"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        }
+      },
+      "x-go-package": "touchstone-api/pkg/user"
+    },
+    "User": {
+      "type": "object",
+      "title": "User represents the the security principal for this application.",
+      "properties": {
+        "avatar_url": {
+          "description": "Link to avatar picture",
+          "type": "string",
+          "x-go-name": "AvatarURL",
+          "example": "https://avatars3.githubusercontent.com/u/5869473?s=60"
+        },
+        "id": {
+          "description": "User identifier, same as Github ID",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ID",
+          "example": 5869473
+        },
+        "name": {
+          "description": "User full name",
+          "type": "string",
+          "x-go-name": "Name",
+          "example": "Konstantin Darutkin"
+        },
+        "username": {
+          "description": "Unique username, same as Github login",
+          "type": "string",
+          "x-go-name": "Username",
+          "example": "spalt08"
+        }
+      },
+      "x-go-package": "touchstone-api/pkg/model"
+    }
+  },
+  "securityDefinitions": {
+    "jwtToken": {
+      "description": "JWT token can be obtained by /login endpoint",
+      "type": "http"
+    }
+  }
+}
