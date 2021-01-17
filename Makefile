@@ -9,6 +9,7 @@ swagger:
 
 swagger-html: swagger
 	redoc-cli bundle docs/swagger.json -o docs/swagger.html 
+	cp docs/swagger.html docs/index.html
 
 test:
 	go test pkg/user/*.go -v
@@ -30,8 +31,5 @@ prepare:
 serve: prepare start
 	fswatch -e vendor -or --event=Updated /home/touchstone-api/pkg | xargs -n1 -I {} make restart
 
-migrate-init:
-	go run cmd/migrate/*.go init
-
-migrate-up:
-	 go run cmd/migrate/*.go up
+build:
+	go build -o bin/api cmd/api/*.go
