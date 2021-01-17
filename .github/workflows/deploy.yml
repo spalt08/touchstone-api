@@ -1,6 +1,6 @@
 name: Deploy
 
-on: push
+on: release
 
 jobs:
   deploy:
@@ -11,4 +11,4 @@ jobs:
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      - run: doctl apps create-deployment 6763dc0d-a440-404d-9c3e-54aef099789f
+      - run: doctl apps create-deployment ${{ secrets.DIGITALOCEAN_APP_ID }}
