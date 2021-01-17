@@ -1,11 +1,11 @@
-// Package api JSBench Server
+// Package api Touchstone API
 //
-// Backend REST server for jsbench
+// Backend REST application for the Touchstone clients
 //
 //     Schemes: http, https
-//     Host: localhost:8081
+//     Host: api.touch.st
 //     BasePath: /v1
-//     Version: 1.0.0
+//     Version: 0.0.1
 //
 //     Consumes:
 //     - application/json
@@ -16,7 +16,7 @@
 //     SecurityDefinitions:
 //       jwtToken:
 //         type: http
-//         description: JWT token can be obtained by /login endpoint
+//         description: JWT token can be obtained by /login/github endpoint
 //         scheme: Bearer
 //         bearerFormat: JWT
 //
