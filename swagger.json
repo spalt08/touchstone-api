@@ -11,11 +11,11 @@
   ],
   "swagger": "2.0",
   "info": {
-    "description": "Backend REST server for jsbench",
-    "title": "JSBench Server",
-    "version": "1.0.0"
+    "description": "Backend REST application for the Touchstone clients",
+    "title": "Touchstone API",
+    "version": "0.0.1"
   },
-  "host": "localhost:8081",
+  "host": "api.touch.st",
   "basePath": "/v1",
   "paths": {
     "/benchmark": {
@@ -311,7 +311,7 @@
   },
   "securityDefinitions": {
     "jwtToken": {
-      "description": "JWT token can be obtained by /login endpoint",
+      "description": "JWT token can be obtained by /login/github endpoint",
       "type": "http"
     }
   }
