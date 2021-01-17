@@ -18,6 +18,33 @@
   "host": "localhost:8081",
   "basePath": "/v1",
   "paths": {
+    "/benchmark": {
+      "post": {
+        "tags": [
+          "Benchmark"
+        ],
+        "summary": "Benchmark creation",
+        "operationId": "createBenchmark",
+        "parameters": [
+          {
+            "name": "Request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateRequest"
+            }
+          }
+        }
+      }
+    },
     "/login/github": {
       "post": {
         "description": "Can be used both for signing in and registration",
@@ -40,7 +67,7 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/GithubLoginRequest"
+              "$ref": "#/definitions/GithubLoginResponse"
             }
           }
         }
@@ -71,10 +98,54 @@
     }
   },
   "definitions": {
+    "CodePart": {
+      "description": "CodePart represents basic bulding block of a benchmark",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "x-go-name": "Code"
+        },
+        "language": {
+          "type": "string",
+          "x-go-name": "Language"
+        },
+        "options": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "x-go-name": "Options"
+        },
+        "title": {
+          "type": "string",
+          "x-go-name": "Title"
+        },
+        "type": {
+          "type": "string",
+          "x-go-name": "Type"
+        }
+      },
+      "x-go-package": "touchstone-api/pkg/benchmark"
+    },
     "CreateRequest": {
       "description": "CreateRequest represents request data for POST /benchmark",
       "type": "object",
       "properties": {
+        "code_parts": {
+          "description": "Array of code parts",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CodePart"
+          },
+          "x-go-name": "CodeParts"
+        },
+        "platform": {
+          "description": "A platform to run the benchmark",
+          "type": "string",
+          "x-go-name": "Platform",
+          "example": "browser"
+        },
         "setup_code": {
           "description": "The benchmark setup code",
           "type": "object",
