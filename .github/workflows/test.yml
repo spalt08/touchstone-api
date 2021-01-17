@@ -1,7 +1,5 @@
 name: Testing
 
-on: push
-
 jobs:
   test:
     name: Testing
@@ -12,4 +10,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - run: docker-compose up -d db
+      - run: echo "Checking syntax"
+      - run: gofmt -e **/*.go > /dev/null
+      - run: echo "Testing"
       - run: make test
