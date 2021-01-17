@@ -30,3 +30,6 @@ prepare:
 
 serve: prepare start
 	fswatch -e vendor -or --event=Updated /home/touchstone-api/pkg | xargs -n1 -I {} make restart
+
+build:
+	go build -o bin/api cmd/api/*.go
