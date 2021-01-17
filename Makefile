@@ -29,9 +29,3 @@ prepare:
 
 serve: prepare start
 	fswatch -e vendor -or --event=Updated /home/touchstone-api/pkg | xargs -n1 -I {} make restart
-
-migrate-init:
-	go run cmd/migrate/*.go init
-
-migrate-up:
-	 go run cmd/migrate/*.go up
