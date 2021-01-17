@@ -9,6 +9,7 @@ swagger:
 
 swagger-html: swagger
 	redoc-cli bundle docs/swagger.json -o docs/swagger.html 
+	cp docs/swagger.html docs/index.html
 
 test:
 	go test pkg/user/*.go -v
