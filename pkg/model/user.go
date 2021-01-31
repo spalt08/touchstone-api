@@ -12,15 +12,15 @@ import (
 type User struct {
 	// User identifier, same as Github ID
 	// example: 5869473
-	ID int64 `pg:",pk" json:"id"`
+	ID int64 `pg:",pk" json:"id" binding:"required"`
 
 	// Unique username, same as Github login
 	// example: spalt08
-	Username string `pg:",unique" json:"username"`
+	Username string `pg:",unique" json:"username" binding:"required"`
 
 	// User full name
 	// example: Konstantin Darutkin
-	Name string `json:"name"`
+	Name string `json:"name" binding:"required"`
 
 	// Link to avatar picture
 	// example: https://avatars3.githubusercontent.com/u/5869473?s=60

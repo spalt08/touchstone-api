@@ -9,7 +9,7 @@ import (
 func Setup(handler *gin.Engine) {
 	handler.Use(cors.New(cors.Config{
 		AllowAllOrigins: true,
-		AllowMethods:    []string{"POST", "GET"},
-		AllowHeaders:    []string{"Origin", "Content-Type"},
+		AllowMethods:    []string{"*"},
+		AllowHeaders:    []string{"*"},
 	}))
 }

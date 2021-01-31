@@ -6,6 +6,6 @@ import "touchstone-api/pkg/model"
 // swagger:model
 type GithubLoginResponse struct {
 	// Logged user
-	User  *model.User `json:"user"`
-	Token string      `json:"token"`
+	User  *model.User `json:"user" binding:"required"`
+	Token string      `json:"token" binding:"required"`
 }
