@@ -23,7 +23,7 @@
           "Benchmark"
         ],
         "summary": "Benchmark creation",
-        "operationId": "create",
+        "operationId": "benchmarkCreate",
         "parameters": [
           {
             "name": "Request",
@@ -51,7 +51,7 @@
           "User"
         ],
         "summary": "Authentification",
-        "operationId": "login",
+        "operationId": "userLogin",
         "parameters": [
           {
             "name": "Request",
@@ -84,7 +84,7 @@
           "User"
         ],
         "summary": "Get Account",
-        "operationId": "me",
+        "operationId": "userMe",
         "responses": {
           "200": {
             "description": "Success",
