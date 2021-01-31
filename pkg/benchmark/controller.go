@@ -10,7 +10,7 @@ type controller struct {
 }
 
 func (ctrl *controller) Create(ctx *gin.Context) {
-	// swagger:operation POST /benchmark Benchmark createBenchmark
+	// swagger:operation POST /benchmark Benchmark create
 	// ---
 	// summary: Benchmark creation
 	// parameters:

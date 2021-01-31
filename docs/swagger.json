@@ -6,14 +6,13 @@
     "application/json"
   ],
   "schemes": [
-    "http",
     "https"
   ],
   "swagger": "2.0",
   "info": {
     "description": "Backend REST application for the Touchstone clients",
     "title": "Touchstone API",
-    "version": "0.0.1"
+    "version": "0.1.0"
   },
   "host": "api.touch.st",
   "basePath": "/v1",
@@ -24,7 +23,7 @@
           "Benchmark"
         ],
         "summary": "Benchmark creation",
-        "operationId": "createBenchmark",
+        "operationId": "create",
         "parameters": [
           {
             "name": "Request",
@@ -52,7 +51,7 @@
           "User"
         ],
         "summary": "Authentification",
-        "operationId": "userLogin",
+        "operationId": "login",
         "parameters": [
           {
             "name": "Request",
@@ -85,7 +84,7 @@
           "User"
         ],
         "summary": "Get Account",
-        "operationId": "userSelf",
+        "operationId": "me",
         "responses": {
           "200": {
             "description": "Success",

@@ -2,10 +2,10 @@
 //
 // Backend REST application for the Touchstone clients
 //
-//     Schemes: http, https
+//     Schemes: https
 //     Host: api.touch.st
 //     BasePath: /v1
-//     Version: 0.0.1
+//     Version: 0.1.0
 //
 //     Consumes:
 //     - application/json
