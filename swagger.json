@@ -44,7 +44,7 @@
         }
       }
     },
-    "/login/github": {
+    "/user/login": {
       "post": {
         "description": "Can be used both for signing in and registration",
         "tags": [
@@ -72,7 +72,7 @@
         }
       }
     },
-    "/me": {
+    "/user/me": {
       "get": {
         "security": [
           {
