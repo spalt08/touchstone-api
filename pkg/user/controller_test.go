@@ -29,7 +29,7 @@ func setupServer(t *testing.T) (*tests.TestServer, *pg.Tx) {
 }
 
 func TestLoginValidation(t *testing.T) {
-	endpoint := "/v1/login/github"
+	endpoint := "/v1/user/login"
 	body := "invalid body"
 
 	api, tx := setupServer(t)
@@ -46,7 +46,7 @@ func TestLoginValidation(t *testing.T) {
 }
 
 func TestGithubLoginSuccessful(t *testing.T) {
-	endpoint := "/v1/login/github"
+	endpoint := "/v1/user/login"
 	body := `{"code": "abcdef","state":"123456"}`
 
 	// network mocks
@@ -94,7 +94,7 @@ func TestGithubLoginSuccessful(t *testing.T) {
 }
 
 func TestMeSuccessful(t *testing.T) {
-	endpoint := "/v1/me"
+	endpoint := "/v1/user/me"
 
 	api, tx := setupServer(t)
 	defer tx.Rollback()
@@ -118,7 +118,7 @@ func TestMeSuccessful(t *testing.T) {
 }
 
 func TestMeWithoutAuthToken(t *testing.T) {
-	endpoint := "/v1/me"
+	endpoint := "/v1/user/me"
 
 	api, _ := setupServer(t)
 
@@ -135,7 +135,7 @@ func TestMeWithoutAuthToken(t *testing.T) {
 }
 
 func TestMeWithInvalidAuthToken(t *testing.T) {
-	endpoint := "/v1/me"
+	endpoint := "/v1/user/me"
 
 	api, _ := setupServer(t)
 	api.AuthToken = "invalid"

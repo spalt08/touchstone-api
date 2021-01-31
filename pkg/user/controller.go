@@ -11,7 +11,7 @@ type controller struct {
 }
 
 func (ctrl *controller) GithubLogin(ctx *gin.Context) {
-	// swagger:operation POST /login/github User userLogin
+	// swagger:operation POST /user/login User userLogin
 	// ---
 	// summary: Authentification
 	// description: Can be used both for signing in and registration
@@ -70,7 +70,7 @@ func (ctrl *controller) GithubLogin(ctx *gin.Context) {
 }
 
 func (ctrl *controller) Me(ctx *gin.Context) {
-	// swagger:operation Get /me User userMe
+	// swagger:operation Get /user/me User userMe
 	// ---
 	// summary: Get Account
 	// description: Returns current authorized user

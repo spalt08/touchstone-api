@@ -7,11 +7,11 @@ import (
 
 // Setup will attach controllers for related routes to gin instance
 func Setup(router *gin.Engine, service *Service) {
-	var routes = router.Group("/v1")
+	var routes = router.Group("/v1/user")
 	var ctrl = &controller{
 		service: service,
 	}
 
 	routes.GET("/me", ctrl.Me)
-	routes.POST("/login/github", ctrl.GithubLogin)
+	routes.POST("/login", ctrl.GithubLogin)
 }
